@@ -11,12 +11,28 @@ nothing to commit, working tree clean
 `)).to.be.false;
   });
 
+  it('detects detached head when Git < 2.9.1', function() {
+    expect(isGitClean(`
+HEAD detached at 7036c83
+nothing to commit, working directory clean
+`)).to.be.false;
+  });
+
   it('detects clean', function() {
     expect(isGitClean(`
 On branch master
 Your branch is up-to-date with 'origin/master'.
 
 nothing to commit, working tree clean
+`)).to.be.true;
+  });
+
+  it('detects clean when Git < 2.9.1', function() {
+    expect(isGitClean(`
+On branch master
+Your branch is up-to-date with 'origin/master'.
+
+nothing to commit, working directory clean
 `)).to.be.true;
   });
 
